@@ -5,5 +5,23 @@ defineOptions({
 </script>
 
 <template>
-  <h1>Pure-Admin-Thin（非国际化版本）</h1>
+  <div class="home">
+    <h1>Powered by 无界[Wuji] - 极致的微前端框架</h1>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.home {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  h1 {
+    width: fit-content;
+    font-size: 24px;
+    background-image: linear-gradient(45deg, #42e695, #3bb2b8);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+</style>

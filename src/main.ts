@@ -24,6 +24,77 @@ import "./assets/iconfont/iconfont.css";
 
 const app = createApp(App);
 
+// 无界相关引入
+import WujieVue from "wujie-vue3";
+import lifecycles from "../wujie-config/lifecycle";
+// import plugins from "../wujie-config/plugin";
+import hostMap from "../wujie-config/hostMap";
+import credentialsFetch from "../wujie-config/fetch";
+const degrade =
+  window.localStorage.getItem("degrade") === "true" ||
+  !window.Proxy ||
+  !window.CustomElementRegistry;
+const { setupApp, bus } = WujieVue; //  preloadApp
+const isProduction = process.env.NODE_ENV === "production";
+const attrs = isProduction ? { src: hostMap("//localhost:8000/") } : {};
+const props = {
+  jump: (name: any) => {
+    router.push({ name });
+  }
+};
+app.config.globalProperties.$WujieVue = WujieVue;
+
+bus.$on("click", msg => window.alert(msg));
+
+// 在 xxx-sub 路由下子应用将激活路由同步给主应用，主应用跳转对应路由高亮菜单栏
+bus.$on("sub-route-change", (name: any, path: any) => {
+  const mainName = `${name}-sub`;
+  const mainPath = `/${name}-sub${path}`;
+  const currentName = router.currentRoute.value.name;
+  const currentPath = router.currentRoute.value.path;
+  if (mainName === currentName && mainPath !== currentPath) {
+    router.push({ path: mainPath });
+  }
+});
+
+app.use(WujieVue);
+
+setupApp({
+  name: "vue3",
+  url: hostMap("//localhost:8082/"),
+  attrs,
+  exec: true,
+  alive: true,
+  plugins: [
+    {
+      cssExcludes: [
+        "https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      ]
+    }
+  ],
+  props,
+  // 引入了的第三方样式不需要添加credentials
+  fetch: (url: any, options) =>
+    url.includes(hostMap("//localhost:8082/"))
+      ? credentialsFetch(url, options)
+      : window.fetch(url, options),
+  degrade,
+  ...lifecycles
+});
+
+setupApp({
+  name: "vue2",
+  url: hostMap("//localhost:6100/"),
+  attrs,
+  alive: true,
+  exec: true,
+  sync: true,
+  props,
+  fetch: credentialsFetch,
+  degrade,
+  ...lifecycles
+});
+
 // 自定义指令
 import * as directives from "@/directives";
 Object.keys(directives).forEach(key => {

@@ -3,7 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import { viteBuildInfo } from "./info";
 import svgLoader from "vite-svg-loader";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import { viteMockServe } from "vite-plugin-mock";
+import { viteMockServe } from "vite-plugin-mock"; //注释掉即可删除mock
 import { configCompressPlugin } from "./compress";
 // import ElementPlus from "unplugin-element-plus/vite";
 import { visualizer } from "rollup-plugin-visualizer";

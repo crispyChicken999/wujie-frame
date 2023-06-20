@@ -30,7 +30,9 @@ export function useDataThemeChange() {
     /* 深粉色 */
     { color: "#eb2f96", themeColor: "pink" },
     /* 深紫罗兰色 */
-    { color: "#722ed1", themeColor: "saucePurple" }
+    { color: "#722ed1", themeColor: "saucePurple" },
+    /* 科技绿色 */
+    { color: "#279793", themeColor: "techGreen" }
   ]);
 
   const { $storage } = useGlobal<GlobalPropertiesApi>();

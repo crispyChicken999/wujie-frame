@@ -10,6 +10,8 @@ import { getParentPaths, findRouteByPath } from "@/router/utils";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import LogoutCircleRLine from "@iconify-icons/ri/logout-circle-r-line";
 import Setting from "@iconify-icons/ri/settings-3-line";
+const VITE_IS_SETTING_ENABLE = import.meta.env.VITE_IS_SETTING_ENABLE;
+console.log("VITE_IS_SETTING_ENABLE: ", VITE_IS_SETTING_ENABLE);
 
 const menuRef = ref();
 const defaultActive = ref(null);
@@ -93,7 +95,7 @@ watch(
       <!-- 通知 -->
       <Notice id="header-notice" />
       <!-- 退出登录 -->
-      <el-dropdown trigger="click">
+      <el-dropdown placement="bottom-start" trigger="click">
         <span class="el-dropdown-link navbar-bg-hover select-none">
           <img :src="userAvatar" :style="avatarsStyle" />
           <p v-if="username" class="dark:text-white">{{ username }}</p>
@@ -111,6 +113,7 @@ watch(
         </template>
       </el-dropdown>
       <span
+        v-if="VITE_IS_SETTING_ENABLE"
         class="set-icon navbar-bg-hover"
         title="打开项目配置"
         @click="onPanel"
@@ -131,7 +134,7 @@ watch(
 
   ::v-deep(.el-dropdown-menu__item) {
     display: inline-flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     min-width: 100%;
   }
 }

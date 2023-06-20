@@ -13,9 +13,12 @@ import { stringify } from "qs";
 import NProgress from "../progress";
 import { getToken, formatToken } from "@/utils/auth";
 import { useUserStoreHook } from "@/store/modules/user";
+// import { baseURL } from "@/api/apiUrl";
 
 // 相关配置请参考：www.axios-js.com/zh-cn/docs/#axios-request-config-1
 const defaultConfig: AxiosRequestConfig = {
+  // 如果需要切换到后端接口，放开注释即可
+  // baseURL: baseURL,
   // 请求超时时间
   timeout: 10000,
   headers: {

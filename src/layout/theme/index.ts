@@ -104,6 +104,17 @@ const themeColors = {
     sidebarLogo: "#1f0c38",
     menuTitleHover: "#fff",
     menuActiveBefore: "#693ac9"
+  },
+  techGreen: {
+    subMenuActiveText: "#fff",
+    menuBg: "#042e36",
+    menuHover: "#5aa7a7",
+    subMenuBg: "#000",
+    subMenuActiveBg: "#5aa7a7",
+    menuText: "#8fd9d7",
+    sidebarLogo: "#0b262c",
+    menuTitleHover: "#fff",
+    menuActiveBefore: "#5aa7a7"
   }
 };
 
