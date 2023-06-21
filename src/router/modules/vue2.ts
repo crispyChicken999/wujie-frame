@@ -4,7 +4,8 @@ export default [
     name: "vue2",
     component: () => import("@/views/vue2/index.vue"),
     meta: {
-      title: "vue2"
+      title: "vue2",
+      icon: "cib:vue-js"
     }
   }
 ] as Array<RouteConfigsTable>;

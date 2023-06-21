@@ -93,6 +93,20 @@ declare global {
       showLink?: boolean;
       /** 菜单升序排序，值越高排的越后（只针对顶级路由）`可选` */
       rank?: number;
+      /** 是否为无界子应用 `可选` */
+      isPoweredByWujie?: boolean;
+      transition?: {
+        /**
+         * @description 当前路由动画效果
+         * @see {@link https://next.router.vuejs.org/guide/advanced/transitions.html#transitions}
+         * @see animate.css {@link https://animate.style}
+         */
+        name?: string;
+        /** 进场动画 */
+        enterTransition?: string;
+        /** 离场动画 */
+        leaveTransition?: string;
+      };
     };
     /** 子路由配置项 */
     children?: Array<RouteChildrenConfigsTable>;

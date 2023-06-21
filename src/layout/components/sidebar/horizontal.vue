@@ -2,7 +2,7 @@
 import Search from "../search/index.vue";
 import Notice from "../notice/index.vue";
 import SidebarItem from "./sidebarItem.vue";
-import { isAllEmpty } from "@pureadmin/utils";
+import { isAllEmpty, useDark } from "@pureadmin/utils";
 import { ref, nextTick, computed } from "vue";
 import { useNav } from "@/layout/hooks/useNav";
 import { usePermissionStoreHook } from "@/store/modules/permission";
@@ -26,6 +26,8 @@ const defaultActive = computed(() =>
   !isAllEmpty(route.meta?.activePath) ? route.meta.activePath : route.path
 );
 
+const { isDark } = useDark();
+
 nextTick(() => {
   menuRef.value?.handleResize();
 });
@@ -36,7 +38,10 @@ nextTick(() => {
     v-loading="usePermissionStoreHook().wholeMenus.length === 0"
     class="horizontal-header"
   >
-    <div class="horizontal-header-left" @click="backTopMenu">
+    <div
+      :class="['horizontal-header-left', isDark ? 'is-dark' : '']"
+      @click="backTopMenu"
+    >
       <img src="/logo.png" alt="logo" />
       <span>{{ title }}</span>
     </div>

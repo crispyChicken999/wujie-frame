@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /* $sideBarWidth: vertical 模式下主体内容距离网页文档左侧的距离 */
 @mixin merge-style($sideBarWidth) {
   $menuActiveText: #7a80b4;
@@ -53,7 +55,7 @@
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 998;
+    z-index: 999;
     width: calc(100% - 210px);
 
     /* fixed-header 属性左上角动画 */
@@ -399,11 +401,17 @@
       display: flex;
       align-items: center;
       width: auto;
-      min-width: 200px;
+      min-width: 210px;
       height: 100%;
       padding-left: 10px;
       cursor: pointer;
+      background-color: $sidebarLogo;
+      border-right: 1px solid color.adjust($sidebarLogo, $lightness: -50%);
       transition: all var(--pure-transition-duration) ease;
+
+      &.is-dark {
+        background-color: color.adjust($sidebarLogo, $lightness: -50%);
+      }
 
       img {
         display: inline-block;

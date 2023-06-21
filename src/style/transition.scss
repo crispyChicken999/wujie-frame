@@ -12,17 +12,20 @@
 /* fade-transform */
 .fade-transform-leave-active,
 .fade-transform-enter-active {
+  overflow: hidden;
   transition: all 0.5s;
 }
 
 .fade-transform-enter-from {
+  // transform: translateX(-30px);
+  overflow: hidden;
   opacity: 0;
-  transform: translateX(-30px);
 }
 
 .fade-transform-leave-to {
+  // transform: translateX(30px);
+  overflow: hidden;
   opacity: 0;
-  transform: translateX(30px);
 }
 
 /* breadcrumb transition */

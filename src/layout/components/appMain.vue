@@ -80,50 +80,48 @@ const transitionMain = defineComponent({
   >
     <router-view>
       <template #default="{ Component, route }">
-        <div class="frame-container">
-          <el-scrollbar v-if="props.fixedHeader">
-            <el-backtop title="回到顶部" target=".app-main .el-scrollbar__wrap">
-              <backTop />
-            </el-backtop>
-            <transitionMain :route="route">
-              <keep-alive
-                v-if="keepAlive"
-                :include="usePermissionStoreHook().cachePageList"
-              >
-                <component
-                  :is="Component"
-                  :key="route.fullPath"
-                  class="main-content"
-                />
-              </keep-alive>
+        <el-scrollbar v-if="props.fixedHeader && !route.meta?.isPoweredByWujie">
+          <el-backtop title="回到顶部" target=".app-main .el-scrollbar__wrap">
+            <backTop />
+          </el-backtop>
+          <transitionMain :route="route">
+            <keep-alive
+              v-if="keepAlive"
+              :include="usePermissionStoreHook().cachePageList"
+            >
               <component
-                v-else
                 :is="Component"
                 :key="route.fullPath"
                 class="main-content"
               />
-            </transitionMain>
-          </el-scrollbar>
-          <div v-else>
-            <transitionMain :route="route">
-              <keep-alive
-                v-if="keepAlive"
-                :include="usePermissionStoreHook().cachePageList"
-              >
-                <component
-                  :is="Component"
-                  :key="route.fullPath"
-                  class="main-content"
-                />
-              </keep-alive>
+            </keep-alive>
+            <component
+              v-else
+              :is="Component"
+              :key="route.fullPath"
+              class="main-content"
+            />
+          </transitionMain>
+        </el-scrollbar>
+        <div v-else>
+          <transitionMain :route="route">
+            <keep-alive
+              v-if="keepAlive"
+              :include="usePermissionStoreHook().cachePageList"
+            >
               <component
-                v-else
                 :is="Component"
                 :key="route.fullPath"
                 class="main-content"
               />
-            </transitionMain>
-          </div>
+            </keep-alive>
+            <component
+              v-else
+              :is="Component"
+              :key="route.fullPath"
+              class="main-content"
+            />
+          </transitionMain>
         </div>
       </template>
     </router-view>
@@ -144,15 +142,29 @@ const transitionMain = defineComponent({
   min-height: 100vh;
 }
 
+// :deep(.el-scrollbar__bar) {
+//   &.is-horizontal {
+//     display: none;
+//   }
+// }
+
 .main-content {
   :deep(iframe) {
     width: 100%;
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - 48px);
+  }
+
+  :deep(wujie-app) {
+    max-height: calc(100vh - 48px);
+
+    html {
+      height: 100%;
+    }
   }
 }
 
 .frame-container {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 48px);
 
   .frame-scrollbar {
     height: 100%;

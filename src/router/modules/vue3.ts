@@ -4,7 +4,8 @@ export default [
     name: "vue3",
     component: () => import("@/views/vue3/index.vue"),
     meta: {
-      title: "vue3"
+      title: "vue3",
+      icon: "uim:vuejs"
     }
   }
 ] as Array<RouteConfigsTable>;

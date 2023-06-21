@@ -27,6 +27,7 @@ import { useAppStoreHook } from "@/store/modules/app";
 import { toggleTheme } from "@pureadmin/theme/dist/browser-utils";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
+import WujieVue from "wujie-vue3";
 
 import dayIcon from "@/assets/svg/day.svg?component";
 import darkIcon from "@/assets/svg/dark.svg?component";
@@ -60,6 +61,8 @@ if (unref(layoutTheme)) {
   });
   setLayoutModel(layout);
 }
+
+const isDevelopmentMode = process.env.NODE_ENV === "development";
 
 /** 默认灵动模式 */
 const markValue = ref($storage.configure?.showModel ?? "smart");
@@ -197,6 +200,18 @@ function setLayoutModel(layout: string) {
   useAppStoreHook().setLayout(layout);
 }
 
+const { bus } = WujieVue;
+/** 切换暗色模式 */
+function toggleDarkMode() {
+  dataThemeChange();
+  bus.$emit("toggle-sub-dark-mode", dataTheme.value);
+}
+
+function mainAppSetLayoutThemeColor(item) {
+  setLayoutThemeColor(item.themeColor);
+  bus.$emit("set-sub-theme-color", item);
+}
+
 watch($storage, ({ layout }) => {
   switch (layout["layout"]) {
     case "vertical":
@@ -238,12 +253,12 @@ onBeforeMount(() => {
       class="pure-datatheme"
       :active-icon="dayIcon"
       :inactive-icon="darkIcon"
-      @change="dataThemeChange"
+      @change="toggleDarkMode"
     />
 
     <el-divider>导航栏模式</el-divider>
     <ul class="pure-theme">
-      <el-tooltip
+      <!-- <el-tooltip
         :effect="tooltipEffect"
         class="item"
         content="左侧模式"
@@ -258,7 +273,7 @@ onBeforeMount(() => {
           <div />
           <div />
         </li>
-      </el-tooltip>
+      </el-tooltip> -->
 
       <el-tooltip
         v-if="device !== 'mobile'"
@@ -278,7 +293,7 @@ onBeforeMount(() => {
         </li>
       </el-tooltip>
 
-      <el-tooltip
+      <!-- <el-tooltip
         v-if="device !== 'mobile'"
         :effect="tooltipEffect"
         class="item"
@@ -294,7 +309,7 @@ onBeforeMount(() => {
           <div />
           <div />
         </li>
-      </el-tooltip>
+      </el-tooltip> -->
     </ul>
 
     <el-divider>主题色</el-divider>
@@ -304,7 +319,7 @@ onBeforeMount(() => {
         :key="index"
         v-show="showThemeColors(item.themeColor)"
         :style="getThemeColorStyle(item.color)"
-        @click="setLayoutThemeColor(item.themeColor)"
+        @click="mainAppSetLayoutThemeColor(item)"
       >
         <el-icon
           style="margin: 0.1em 0.1em 0 0"
@@ -340,7 +355,7 @@ onBeforeMount(() => {
           @change="weekChange"
         />
       </li>
-      <li>
+      <li v-if="isDevelopmentMode">
         <span class="dark:text-white">隐藏标签页</span>
         <el-switch
           v-model="settings.tabsVal"
@@ -351,7 +366,7 @@ onBeforeMount(() => {
           @change="tagsChange"
         />
       </li>
-      <li>
+      <li v-if="isDevelopmentMode">
         <span class="dark:text-white">侧边栏Logo</span>
         <el-switch
           v-model="logoVal"
@@ -364,7 +379,7 @@ onBeforeMount(() => {
           @change="logoChange"
         />
       </li>
-      <li>
+      <li v-if="isDevelopmentMode">
         <span class="dark:text-white">标签页持久化</span>
         <el-switch
           v-model="settings.multiTagsCache"
@@ -375,8 +390,7 @@ onBeforeMount(() => {
           @change="multiTagsCacheChange"
         />
       </li>
-
-      <li>
+      <li v-if="isDevelopmentMode">
         <span class="dark:text-white">标签风格</span>
         <el-radio-group v-model="markValue" size="small" @change="onChange">
           <el-radio label="card">卡片</el-radio>

@@ -6,7 +6,7 @@ defineOptions({
 
 <template>
   <div class="home">
-    <h1>Powered by 无界[Wuji] - 极致的微前端框架</h1>
+    <h1>Powered by 无界[Wujie] - 极致的微前端框架</h1>
   </div>
 </template>
 

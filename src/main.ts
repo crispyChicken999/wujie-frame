@@ -21,12 +21,15 @@ import "element-plus/dist/index.css";
 // 导入字体图标
 import "./assets/iconfont/iconfont.js";
 import "./assets/iconfont/iconfont.css";
+// 全屏
+import { useFullscreen } from "@vueuse/core";
+const { toggle } = useFullscreen();
 
 const app = createApp(App);
 
 // 无界相关引入
 import WujieVue from "wujie-vue3";
-import lifecycles from "../wujie-config/lifecycle";
+// import lifecycles from "../wujie-config/lifecycle";
 // import plugins from "../wujie-config/plugin";
 import hostMap from "../wujie-config/hostMap";
 import credentialsFetch from "../wujie-config/fetch";
@@ -43,7 +46,7 @@ const props = {
   }
 };
 app.config.globalProperties.$WujieVue = WujieVue;
-
+app.config.globalProperties.$config;
 bus.$on("click", msg => window.alert(msg));
 
 // 在 xxx-sub 路由下子应用将激活路由同步给主应用，主应用跳转对应路由高亮菜单栏
@@ -55,6 +58,10 @@ bus.$on("sub-route-change", (name: any, path: any) => {
   if (mainName === currentName && mainPath !== currentPath) {
     router.push({ path: mainPath });
   }
+});
+
+bus.$on("sub-request-fullscreen", () => {
+  toggle();
 });
 
 app.use(WujieVue);
@@ -78,8 +85,17 @@ setupApp({
     url.includes(hostMap("//localhost:8082/"))
       ? credentialsFetch(url, options)
       : window.fetch(url, options),
-  degrade,
-  ...lifecycles
+  degrade
+});
+
+setupApp({
+  name: "systemManagement",
+  url: hostMap("//localhost:6666/"),
+  attrs,
+  exec: true,
+  alive: true,
+  props,
+  degrade
 });
 
 setupApp({
@@ -91,8 +107,7 @@ setupApp({
   sync: true,
   props,
   fetch: credentialsFetch,
-  degrade,
-  ...lifecycles
+  degrade
 });
 
 // 自定义指令
