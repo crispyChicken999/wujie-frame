@@ -81,11 +81,14 @@ function toggle(device: string, bool: boolean) {
 let isAutoCloseSidebar = true;
 
 useResizeObserver(appWrapperRef, entries => {
-  if (isMobile) return;
   const entry = entries[0];
   const { width } = entry.contentRect;
-  width <= 760 ? setTheme("vertical") : setTheme(useAppStoreHook().layout);
-  /** width app-wrapper类容器宽度
+  width <= 760 ? setTheme("vertical") : setTheme("horizontal"); // useAppStoreHook().layout
+  if (isMobile) {
+    isAutoCloseSidebar = false;
+    return;
+  }
+  /** width main-app-wrapper类容器宽度
    * 0 < width <= 760 隐藏侧边栏
    * 760 < width <= 990 折叠侧边栏
    * width > 990 展开侧边栏
@@ -149,7 +152,7 @@ const layoutHeader = defineComponent({
 </script>
 
 <template>
-  <div ref="appWrapperRef" :class="['app-wrapper', set.classes]">
+  <div ref="appWrapperRef" :class="['main-app-wrapper', set.classes]">
     <div
       v-show="
         set.device === 'mobile' &&
@@ -194,7 +197,7 @@ const layoutHeader = defineComponent({
 </template>
 
 <style lang="scss" scoped>
-.app-wrapper {
+.main-app-wrapper {
   position: relative;
   width: 100%;
   height: 100%;

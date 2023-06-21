@@ -258,7 +258,7 @@ onBeforeMount(() => {
 
     <el-divider>导航栏模式</el-divider>
     <ul class="pure-theme">
-      <!-- <el-tooltip
+      <el-tooltip
         :effect="tooltipEffect"
         class="item"
         content="左侧模式"
@@ -273,7 +273,7 @@ onBeforeMount(() => {
           <div />
           <div />
         </li>
-      </el-tooltip> -->
+      </el-tooltip>
 
       <el-tooltip
         v-if="device !== 'mobile'"
@@ -293,7 +293,7 @@ onBeforeMount(() => {
         </li>
       </el-tooltip>
 
-      <!-- <el-tooltip
+      <el-tooltip
         v-if="device !== 'mobile'"
         :effect="tooltipEffect"
         class="item"
@@ -309,7 +309,7 @@ onBeforeMount(() => {
           <div />
           <div />
         </li>
-      </el-tooltip> -->
+      </el-tooltip>
     </ul>
 
     <el-divider>主题色</el-divider>
