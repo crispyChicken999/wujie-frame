@@ -5,23 +5,13 @@ defineOptions({
 </script>
 
 <template>
-  <div class="home">
-    <h1>Powered by 无界[Wujie] - 极致的微前端框架</h1>
+  <div class="p-[10px] md:p-[20px] flex flex-col">
+    <h1
+      class="w-auto text-[24px] bg-gradient-to-br from-teal-400 to-cyan-500 bg-clip-text text-transparent"
+      v-for="i in 50"
+      :key="i"
+    >
+      Powered by 无界[Wujie] - 极致的微前端框架
+    </h1>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.home {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-
-  h1 {
-    width: fit-content;
-    font-size: 24px;
-    background-image: linear-gradient(45deg, #42e695, #3bb2b8);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
-</style>

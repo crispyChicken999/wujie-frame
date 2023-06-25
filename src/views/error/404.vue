@@ -10,9 +10,11 @@ const router = useRouter();
 </script>
 
 <template>
-  <div class="flex justify-center items-center h-[640px]">
+  <div
+    class="flex justify-center items-center h-[640px] max-md:flex-col max-md:gap-20"
+  >
     <noExist />
-    <div class="ml-12">
+    <div class="md:ml-12 max-md:text-center">
       <p
         class="font-medium text-4xl mb-4 dark:text-white"
         v-motion
