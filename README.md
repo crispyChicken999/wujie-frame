@@ -1,8 +1,11 @@
-<h1>vue-pure-admin精简版（非国际化版本）</h1>
+<h1>wujie-frame（主应用）</h1>
 
 [![license](https://img.shields.io/github/license/pure-admin/vue-pure-admin.svg)](LICENSE)
 
 **中文** | [English](./README.en-US.md)
+
+- 基于 Wujie 微前端框架和 Pure-admin-vue 进行构建
+- [Pure-admin-vue 查看文档](https://yiming_chang.gitee.io/pure-admin-doc)
 
 ## 介绍
 
@@ -18,8 +21,6 @@
 - [点我查看 UI 设计](https://www.bilibili.com/video/BV17g411T7rq)
 
 ## 配套保姆级文档
-
-- [查看文档](https://yiming_chang.gitee.io/pure-admin-doc)
 
 ## 预览
 
