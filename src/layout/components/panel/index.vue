@@ -45,7 +45,7 @@ onBeforeUnmount(() => {
     <div ref="target" class="right-panel bg-bg_color">
       <div class="right-panel-items">
         <div class="project-configuration">
-          <h4 class="dark:text-white">项目配置</h4>
+          <h4 class="dark:text-white">个性化设置</h4>
           <span title="关闭配置" :class="iconClass">
             <IconifyIconOffline
               class="dark:text-white"

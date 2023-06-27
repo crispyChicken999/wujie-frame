@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { store } from "@/store";
 import { userType } from "./types";
 import { routerArrays } from "@/layout/types";
-import { router, resetRouter } from "@/router";
+import { resetRouter } from "@/router";
 import { storageSession } from "@pureadmin/utils";
 import { getLogin, refreshTokenApi } from "@/api/user";
 import { UserResult, RefreshTokenResult } from "@/api/user";
@@ -49,7 +49,9 @@ export const useUserStore = defineStore({
       removeToken();
       useMultiTagsStoreHook().handleTags("equal", [...routerArrays]);
       resetRouter();
-      router.push("/login");
+      // 销毁子应用
+      window.location.reload();
+      // router.push("/login");
     },
     /** 刷新`token` */
     async handRefreshToken(data) {
