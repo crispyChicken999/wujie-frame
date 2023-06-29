@@ -16,7 +16,7 @@ import {
   storageSession
 } from "@pureadmin/utils";
 import { getConfig } from "@/config";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 import panel from "../panel/index.vue";
 import { emitter } from "@/utils/mitt";
 import { resetRouter } from "@/router";
@@ -34,7 +34,7 @@ import darkIcon from "@/assets/svg/dark.svg?component";
 import Check from "@iconify-icons/ep/check";
 import Logout from "@iconify-icons/ri/logout-circle-r-line";
 
-const router = useRouter();
+// const router = useRouter();
 const { isDark } = useDark();
 const { device, tooltipEffect } = useNav();
 const { $storage } = useGlobal<GlobalPropertiesApi>();
@@ -143,9 +143,10 @@ function onReset() {
   useMultiTagsStoreHook().multiTagsCacheChange(MultiTagsCache);
   toggleClass(Grey, "html-grey", document.querySelector("html"));
   toggleClass(Weak, "html-weakness", document.querySelector("html"));
-  router.push("/login");
+  // router.push("/login");
   useMultiTagsStoreHook().handleTags("equal", [...routerArrays]);
   resetRouter();
+  window.location.reload();
 }
 
 function onChange(label) {
