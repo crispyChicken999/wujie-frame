@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
+
 defineOptions({
   name: "systemManagement"
 });
-const host = "http://192.168.31.40:8080";
+
+const { dataTheme } = useDataThemeChange();
+
+const { VITE_SUB_APP_HOST } = import.meta.env;
 const page = "/#/redirect/welcome";
 const info = {
   userName: "admin",
@@ -10,9 +15,12 @@ const info = {
   accessToken: "eyJhbGciOiJIUzUxMiJ9.admin"
 };
 const params = new URLSearchParams(info).toString();
-const url = `${host}${page}?${params}`;
+const url = `${VITE_SUB_APP_HOST}${page}?${params}`;
+const props = {
+  dataTheme
+};
 </script>
 
 <template>
-  <WujieVue name="systemManagement" :url="url" />
+  <WujieVue name="systemManagement" :url="url" :props="props" />
 </template>
