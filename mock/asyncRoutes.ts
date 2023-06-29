@@ -39,7 +39,8 @@ export default [
   {
     url: "/getAsyncRoutes",
     method: "get",
-    response: () => {
+    response() {
+      this.res.setHeader("Access-Control-Allow-Origin", "*");
       return {
         success: true,
         data: [permissionRouter]

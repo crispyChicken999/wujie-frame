@@ -5,7 +5,8 @@ export default [
   {
     url: "/refreshToken",
     method: "post",
-    response: ({ body }) => {
+    response({ body }) {
+      this.res.setHeader("Access-Control-Allow-Origin", "*");
       if (body.refreshToken) {
         return {
           success: true,

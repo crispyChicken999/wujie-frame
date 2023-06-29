@@ -5,7 +5,8 @@ export default [
   {
     url: "/login",
     method: "post",
-    response: ({ body }) => {
+    response({ body }) {
+      this.res.setHeader("Access-Control-Allow-Origin", "*");
       if (body.username === "admin") {
         return {
           success: true,
