@@ -32,7 +32,7 @@ import WujieVue from "wujie-vue3";
 // import lifecycles from "../wujie-config/lifecycle";
 // import plugins from "../wujie-config/plugin";
 import hostMap from "../wujie-config/hostMap";
-import credentialsFetch from "../wujie-config/fetch";
+// import credentialsFetch from "../wujie-config/fetch";
 const degrade =
   window.localStorage.getItem("degrade") === "true" ||
   !window.Proxy ||
@@ -67,46 +67,12 @@ bus.$on("sub-request-fullscreen", () => {
 app.use(WujieVue);
 
 setupApp({
-  name: "vue3",
-  url: hostMap("//localhost:8082/"),
-  attrs,
-  exec: true,
-  alive: true,
-  plugins: [
-    {
-      cssExcludes: [
-        "https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-      ]
-    }
-  ],
-  props,
-  // 引入了的第三方样式不需要添加credentials
-  fetch: (url: any, options) =>
-    url.includes(hostMap("//localhost:8082/"))
-      ? credentialsFetch(url, options)
-      : window.fetch(url, options),
-  degrade
-});
-
-setupApp({
   name: "systemManagement",
   url: hostMap("//localhost:6666/"),
   attrs,
   exec: true,
   alive: true,
   props,
-  degrade
-});
-
-setupApp({
-  name: "vue2",
-  url: hostMap("//localhost:6100/"),
-  attrs,
-  alive: true,
-  exec: true,
-  sync: true,
-  props,
-  fetch: credentialsFetch,
   degrade
 });
 
