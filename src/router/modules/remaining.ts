@@ -26,5 +26,16 @@ export default [
         component: () => import("@/layout/redirect.vue")
       }
     ]
+  },
+  {
+    path: "/dataCenterWithoutLayout",
+    name: "dataCenterWithoutLayout",
+    component: () => import("@/views/dataCenter/index.vue"),
+    meta: {
+      icon: "icon-park-solid:analysis",
+      title: "数据中心(无布局)",
+      showLink: true,
+      rank: 3
+    }
   }
 ] as Array<RouteConfigsTable>;

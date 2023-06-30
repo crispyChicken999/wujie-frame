@@ -4,7 +4,7 @@ export default [
     name: "otherSystem",
     component: () => import("@/views/otherSystem/index.vue"),
     meta: {
-      rank: 3,
+      rank: 5,
       title: "集成系统",
       icon: "system-uicons:box",
       isPoweredByWujie: true

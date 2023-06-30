@@ -7,7 +7,7 @@ export default {
   meta: {
     icon: "iconamoon:file-document-duotone",
     title: "pure-admin-doc",
-    rank: 2
+    rank: 6
   },
   children: [
     {
