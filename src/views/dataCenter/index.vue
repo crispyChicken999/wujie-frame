@@ -27,7 +27,7 @@ const fullScreenTitle = computed(() => {
 <template>
   <iframe :src="host" frameborder="0" />
   <el-button @click="handleFullScreen">{{ fullScreenTitle }}</el-button>
-  <el-button> <router-link to="/welcome">返回主页</router-link></el-button>
+  <el-button><router-link to="/welcome">返回主页</router-link></el-button>
 </template>
 
 <style lang="scss" scoped>
