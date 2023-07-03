@@ -7,7 +7,7 @@ import Breadcrumb from "./sidebar/breadCrumb.vue";
 import topCollapse from "./sidebar/topCollapse.vue";
 import LogoutCircleRLine from "@iconify-icons/ri/logout-circle-r-line";
 import Setting from "@iconify-icons/ri/settings-3-line";
-const VITE_IS_SETTING_ENABLE = import.meta.env.VITE_IS_SETTING_ENABLE;
+const { VITE_IS_SETTING_ENABLE } = import.meta.env;
 
 const {
   layout,

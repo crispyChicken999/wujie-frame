@@ -257,8 +257,8 @@ onBeforeMount(() => {
       @change="toggleDarkMode"
     />
 
-    <el-divider>导航栏模式</el-divider>
-    <ul class="pure-theme">
+    <el-divider v-show="isDevelopmentMode">导航栏模式</el-divider>
+    <ul class="pure-theme" v-show="isDevelopmentMode">
       <el-tooltip
         :effect="tooltipEffect"
         class="item"
@@ -402,6 +402,7 @@ onBeforeMount(() => {
 
     <el-divider />
     <el-button
+      v-if="isDevelopmentMode"
       type="danger"
       style="width: 90%; margin: 24px 15px"
       @click="onReset"

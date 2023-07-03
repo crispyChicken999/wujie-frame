@@ -8,7 +8,7 @@ import { useNav } from "@/layout/hooks/useNav";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import LogoutCircleRLine from "@iconify-icons/ri/logout-circle-r-line";
 import Setting from "@iconify-icons/ri/settings-3-line";
-const VITE_IS_SETTING_ENABLE = import.meta.env.VITE_IS_SETTING_ENABLE;
+const { VITE_IS_SETTING_ENABLE } = import.meta.env;
 const menuRef = ref();
 
 const {
