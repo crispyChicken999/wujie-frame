@@ -15,3 +15,16 @@ defineOptions({
     </h1>
   </div>
 </template>
+
+<style lang="scss" scoped>
+@use "sass:color";
+
+h1 {
+  width: fit-content;
+  background-image: linear-gradient(
+    to right,
+    $menuHover,
+    color.invert($menuHover, 45%)
+  );
+}
+</style>
