@@ -5,7 +5,7 @@ defineOptions({
   name: "systemManagement"
 });
 
-const { dataTheme } = useDataThemeChange();
+const { dataTheme, layoutTheme } = useDataThemeChange();
 
 const { VITE_SUB_APP_HOST } = import.meta.env;
 const page = "/#/redirect/welcome";
@@ -17,7 +17,8 @@ const info = {
 const params = new URLSearchParams(info).toString();
 const url = `${VITE_SUB_APP_HOST}${page}?${params}`;
 const props = {
-  dataTheme
+  dataTheme,
+  layoutTheme
 };
 </script>
 
