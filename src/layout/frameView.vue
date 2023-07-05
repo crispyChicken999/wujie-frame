@@ -52,6 +52,7 @@ onMounted(() => {
 .frame {
   z-index: 998;
   height: calc(100vh - 88px - 2px);
+  filter: none !important;
 
   .frame-iframe {
     box-sizing: border-box;
