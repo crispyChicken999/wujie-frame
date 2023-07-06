@@ -159,4 +159,40 @@ declare global {
     $storage: ResponsiveStorage;
     $config: ServerConfigs;
   }
+
+  /** 无界子应用二次封装组件的传递参数 */
+  interface subAppProps {
+    /**
+     * 如果子应用需要使用和 VITE_SUB_APP_HOST 不一样的host可以通过这个参数传入
+     */
+    entryHost?: string;
+    /** 无界子应用路由入口（要跳转到那个页面） */
+    entryRoute?: string;
+    /** 无界子应用容器宽度 */
+    width?: string;
+    /** 无界子应用容器高度 */
+    height?: string;
+    /** 无界子应用名称 */
+    name: string;
+    /** 是否开启路由同步模式 */
+    sync?: boolean;
+    /** 自定义fetch方法 */
+    fetch?: Function;
+    /** 生命周期钩子，加载子应用前调用 */
+    beforeLoad?: Function;
+    /** 生命周期钩子，子应用 mount 之前调用 */
+    beforeMount?: Function;
+    /** 生命周期钩子，子应用 mount 完成后调用 */
+    afterMount?: Function;
+    /** 生命周期钩子，子应用 unmount 之前调用 */
+    beforeUnmount?: Function;
+    /** 生命周期钩子，子应用 unmount 完成后调用 */
+    afterUnmount?: Function;
+    /** 是否使用降级模式 */
+    degrade?: boolean;
+    /** 是否为单点登录模式（是否将用户信息[username|roles|accessToken]传递给子应用 - 默认开启） */
+    ssoEnable?: boolean;
+    /** 该子系统是否基于配套的wujie-sub-app开发，如果使用的不是配套的则需手动传入false */
+    isIntegratedSubApp;
+  }
 }

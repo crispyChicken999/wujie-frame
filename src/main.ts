@@ -89,6 +89,10 @@ app.component("IconifyIconOffline", IconifyIconOffline);
 app.component("IconifyIconOnline", IconifyIconOnline);
 app.component("FontIcon", FontIcon);
 
+// 全局注册WujieSubApp
+import { WujieSubApp } from "@/components/ReWujieSubApp";
+app.component("WujieSubApp", WujieSubApp);
+
 // 全局注册按钮级别权限组件
 import { Auth } from "@/components/ReAuth";
 app.component("Auth", Auth);

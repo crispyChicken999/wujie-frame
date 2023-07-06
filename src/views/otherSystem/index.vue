@@ -1,20 +1,19 @@
 <script setup lang="ts">
+const name = "otherSystem";
 defineOptions({
-  name: "otherSystem"
+  name
 });
-// const host = "http://localhost:8099";
 const host = "http://120.78.186.60:8162";
-const page = "/#/Layout/dashboard";
-const info = {
-  // userName: "admin",
-  // roles: "admin",
-  // accessToken: "eyJhbGciOiJIUzUxMiJ9.admin"
-};
-const params = new URLSearchParams(info).toString();
-const url = `${host}${page}?${params}`;
-const degrade = true;
+const route = "/#/Layout/dashboard";
 </script>
 
 <template>
-  <WujieVue name="otherSystem" :url="url" :degrade="degrade" />
+  <WujieSubApp
+    :name="name"
+    :entry-host="host"
+    :entry-route="route"
+    :degrade="true"
+    :sso-enable="false"
+    :is-integrated-sub-app="false"
+  />
 </template>
