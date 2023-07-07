@@ -31,13 +31,6 @@ const app = createApp(App);
 // import lifecycles from "../wujie-config/lifecycle";
 // import plugins from "../wujie-config/plugin";
 // import credentialsFetch from "../wujie-config/fetch";
-import WujieVue from "wujie-vue3";
-import hostMap from "../wujie-config/hostMap";
-const degrade =
-  window.localStorage.getItem("degrade") === "true" ||
-  !window.Proxy ||
-  !window.CustomElementRegistry;
-const { setupApp, bus } = WujieVue; //  preloadApp
 // const isProduction = process.env.NODE_ENV === "production";
 // const attrs = isProduction ? { src: hostMap("//localhost:8000/") } : {};
 // const props = {
@@ -45,19 +38,28 @@ const { setupApp, bus } = WujieVue; //  preloadApp
 //     router.push({ name });
 //   }
 // };
-app.config.globalProperties.$WujieVue = WujieVue;
-// bus.$on("click", msg => window.alert(msg));
+import WujieVue from "wujie-vue3";
+import hostMap from "../wujie-config/hostMap";
+const degrade =
+  window.localStorage.getItem("degrade") === "true" ||
+  !window.Proxy ||
+  !window.CustomElementRegistry;
+const { setupApp, bus } = WujieVue; //  preloadApp
 
-// 在 xxx-sub 路由下子应用将激活路由同步给主应用，主应用跳转对应路由高亮菜单栏
-// bus.$on("sub-route-change", (name: any, path: any) => {
-//   const mainName = `${name}-sub`;
-//   const mainPath = `/${name}-sub${path}`;
-//   const currentName = router.currentRoute.value.name;
-//   const currentPath = router.currentRoute.value.path;
-//   if (mainName === currentName && mainPath !== currentPath) {
-//     router.push({ path: mainPath });
-//   }
-// });
+const plugins = [
+  {
+    jsBeforeLoaders: [
+      {
+        content: `
+          window.Event = window.parent.Event;
+          window.MouseEvent = window.parent.MouseEvent;
+          window.InputEvent = window.parent.InputEvent;
+        `
+      }
+    ]
+  }
+];
+app.config.globalProperties.$WujieVue = WujieVue;
 
 bus.$on("sub-request-fullscreen", () => {
   toggle();
@@ -70,7 +72,8 @@ setupApp({
   url: hostMap("//localhost:6666/"),
   exec: true,
   alive: true,
-  degrade
+  degrade,
+  plugins
 });
 
 // 自定义指令
