@@ -35,7 +35,7 @@ export default defineComponent({
     name: {
       type: String,
       required: true,
-      default: "wujie-sub-app"
+      default: ""
     },
     sync: {
       type: Boolean,
@@ -94,9 +94,9 @@ export default defineComponent({
     const router = useRouter();
 
     /**
-     * 主应用跳转到对应的子应用（由子应用通过 window.$wujie?.props.jump 调用）
+     * 子应用跳转到主应用页面（由子应用通过 window.$wujie?.props.jump 调用）
      * @param location { path: "/pathB" }
-     * @param query 'to=xxx&xxx=xxx'
+     * @param query as 'to=xxx&xxx=xxx'
      */
     const jump = (location: object, query: string | URLSearchParams) => {
       router.push(location);
@@ -173,15 +173,24 @@ export default defineComponent({
     }`;
 
     /**
+     * 子应用监听的路由跳转事件名称
+     * @reason 因为存在多个子应用，如果所有子应用都监听同一个路由跳转事件，
+     * 会导致所有子应用都会跳转到同一个路由（可能会出现异常）
+     * 所以这里为每个子应用设置了对应的路由跳转事件名称
+     * @rules 子应用wujie-sub-app中serverConfig.json的eventBusRouteChangePrefix参数需要和props.name保持一致
+     * @rules eventName的规则就是 [组件的名称 + RouteChange]
+     */
+    const eventName = `${props.name}RouteChange`;
+
+    /**
      * 构建主应用与子应用的通信
      * 1. 若props传入了entryRoute，则通知子应用跳转到指定路由
      * 2. 否则获取路由中的to参数，通知子应用跳转到指定路由
      */
     const { bus } = WujieVue;
     defaultEntryRoute &&
-      bus.$emit("routeChange", routeConverter(defaultEntryRoute));
-    props.entryRoute &&
-      bus.$emit("routeChange", routeConverter(props.entryRoute));
+      bus.$emit(eventName, routeConverter(defaultEntryRoute));
+    props.entryRoute && bus.$emit(eventName, routeConverter(props.entryRoute));
 
     return () => {
       const wujieProps = {
