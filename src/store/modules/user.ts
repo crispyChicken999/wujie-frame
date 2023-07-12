@@ -31,10 +31,12 @@ export const useUserStore = defineStore({
     async loginByUsername(data) {
       return new Promise<UserResult>((resolve, reject) => {
         getLogin(data)
-          .then(data => {
-            if (data) {
-              setToken(data.data);
-              resolve(data);
+          .then(res => {
+            if (res && res.data) {
+              setToken(res.data);
+              resolve(res);
+            } else {
+              reject(res?.message ?? "未知原因");
             }
           })
           .catch(error => {
