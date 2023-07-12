@@ -4,6 +4,7 @@ import { useUserStoreHook } from "@/store/modules/user";
 import { getToken } from "@/utils/auth";
 import { useRoute, useRouter } from "vue-router";
 import WujieVue from "wujie-vue3";
+import { useMock } from "@/api/hooks/mock";
 
 const routeConverter = (route: string) => {
   return route.startsWith("/") ? route : `/${route}`;
@@ -192,6 +193,9 @@ export default defineComponent({
       bus.$emit(eventName, routeConverter(defaultEntryRoute));
     props.entryRoute && bus.$emit(eventName, routeConverter(props.entryRoute));
 
+    /** 是否启用mock */
+    const { isMockEnable } = useMock();
+
     return () => {
       const wujieProps = {
         width: props.width,
@@ -201,9 +205,10 @@ export default defineComponent({
         sync: props.sync,
         fetch: props.fetch,
         props: {
+          jump,
           dataTheme,
           layoutTheme,
-          jump
+          isMockEnable
         },
         degrade: props.degrade,
         beforeLoad: props.beforeLoad,

@@ -12,6 +12,7 @@ import { bg, avatar, illustration } from "./utils/static";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { ref, reactive, toRaw, onMounted, onBeforeUnmount } from "vue";
 import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
+import { useMock } from "@/api/hooks/mock";
 
 import dayIcon from "@/assets/svg/day.svg?component";
 import darkIcon from "@/assets/svg/dark.svg?component";
@@ -25,8 +26,12 @@ const router = useRouter();
 const loading = ref(false);
 const ruleFormRef = ref<FormInstance>();
 
+const isDevelopmentMode = process.env.NODE_ENV === "development";
+
 const { initStorage } = useLayout();
 initStorage();
+
+const { isMockEnable } = useMock();
 
 const { dataTheme, dataThemeChange } = useDataThemeChange();
 dataThemeChange();
@@ -43,7 +48,10 @@ const onLogin = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       useUserStoreHook()
-        .loginByUsername({ username: ruleForm.username, password: "admin123" })
+        .loginByUsername({
+          username: ruleForm.username,
+          password: ruleForm.password
+        })
         .then(res => {
           if (res.success) {
             // 获取后端路由
@@ -52,6 +60,12 @@ const onLogin = async (formEl: FormInstance | undefined) => {
               message("登录成功", { type: "success" });
             });
           }
+        })
+        .catch(err => {
+          message(`登录失败:${err}`, { type: "error" });
+        })
+        .finally(() => {
+          loading.value = false;
         });
     } else {
       loading.value = false;
@@ -62,7 +76,7 @@ const onLogin = async (formEl: FormInstance | undefined) => {
 
 /** 使用公共函数，避免`removeEventListener`失效 */
 function onkeypress({ code }: KeyboardEvent) {
-  if (code === "Enter") {
+  if (code === "Enter" || code === "NumpadEnter") {
     onLogin(ruleFormRef.value);
   }
 }
@@ -82,11 +96,22 @@ onBeforeUnmount(() => {
     <div class="flex-c absolute right-5 top-3">
       <!-- 主题 -->
       <el-switch
-        v-model="dataTheme"
         inline-prompt
+        v-model="dataTheme"
+        title="切换暗色模式"
         :active-icon="dayIcon"
         :inactive-icon="darkIcon"
         @change="dataThemeChange"
+      />
+      <!-- Mock -->
+      <el-switch
+        class="ml-2"
+        inline-prompt
+        v-model="isMockEnable"
+        v-if="isDevelopmentMode"
+        style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
+        active-text="Mock接口开启"
+        inactive-text="Mock接口关闭"
       />
     </div>
     <div class="login-container">

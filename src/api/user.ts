@@ -3,6 +3,8 @@ import { baseUrlApi } from "@/api/utils";
 
 export type UserResult = {
   success: boolean;
+  /** 接口错误原因 */
+  message: string;
   data: {
     /** 用户名 */
     username: string;
@@ -31,7 +33,9 @@ export type RefreshTokenResult = {
 
 /** 登录 */
 export const getLogin = (data?: object) => {
-  return http.request<UserResult>("post", baseUrlApi("/login"), { data });
+  return http.request<UserResult>("post", baseUrlApi("/login"), {
+    data
+  });
 };
 
 /** 刷新token */
